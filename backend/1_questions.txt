@@ -1,0 +1,72 @@
+1. Which keyword is used to implement inheritance in Java?
+A. extends
+B. implements
+C. inherit
+D. instanceOf
+
+
+2. What is the output of the following Python code snippet?
+```python
+print(type(10/2))
+```
+A. <class 'int'>
+B. <class 'float'>
+C. <class 'str'>
+D. <class 'double'>
+
+
+3.  Which of the following is NOT a valid data structure in Python?
+A. List
+B. Tuple
+C. Structure
+D. Dictionary
+
+
+4. What is the purpose of the `WHERE` clause in SQL?
+A. To sort the result set
+B. To filter records
+C. To specify the columns to be returned
+D. To group rows with the same values
+
+
+5. Which of the following is a characteristic of gRPC?
+A. Uses XML for data serialization
+B. Relies on RESTful principles
+C. Employs HTTP/2 for transport
+D. Primarily used for client-side scripting
+
+
+6. What does the acronym BI stand for in the context of software tools like Metabase and Superset?
+A. Business Intelligence
+B. Basic Information
+C. Binary Interface
+D. Branching Instructions
+
+
+7. Which data type is used to store a single character in C?
+A. int
+B. char
+C. string
+D. float
+
+
+8. What is the time complexity of searching an element in a sorted array using binary search?
+A. O(n)
+B. O(log n)
+C. O(n^2)
+D. O(1)
+
+
+9.  Which of the following is NOT a core concept of Object-Oriented Programming?
+A. Inheritance
+B. Polymorphism
+C. Encapsulation
+D. Compilation
+
+
+
+10.  What is a key difference between a list and a tuple in Python?
+A. Lists are ordered, tuples are unordered.
+B. Lists are mutable, tuples are immutable.
+C. Lists can contain different data types, tuples cannot.
+D. Lists use square brackets, tuples use curly braces.

@@ -1,0 +1,72 @@
+1. Which keyword is used to define a class in Java?
+A. struct
+B. class
+C. define
+D. object
+
+
+2. What is the output of the following Python code snippet?
+```python
+print(type(10/2))
+```
+A. <class 'int'>
+B. <class 'float'>
+C. <class 'str'>
+D. <class 'double'>
+
+
+3. What is the purpose of the `SQL` `JOIN` clause?
+A. To filter records from a table
+B. To combine rows from two or more tables based on a related column
+C. To sort the results of a query
+D. To insert new rows into a table
+
+
+4. Which data structure follows the LIFO (Last-In, First-Out) principle?
+A. Queue
+B. Stack
+C. Linked List
+D. Tree
+
+
+5. Which of the following is NOT a valid data type in C?
+A. int
+B. float
+C. string
+D. char
+
+
+6.  What is the primary purpose of gRPC?
+A.  A client-side JavaScript framework for building user interfaces.
+B.  A high-performance, open-source universal RPC framework.
+C.  A markup language used for creating web pages.
+D.  A database management system.
+
+
+7. In Python, what does the `len()` function return?
+A. The data type of an object
+B. The number of items in an object (like a list, tuple, or string)
+C. The memory address of an object
+D. The sum of the elements in a list
+
+
+8. Which of the following is NOT a core concept of Object-Oriented Programming in Java?
+A. Encapsulation
+B. Inheritance
+C. Polymorphism
+D. Multithreading
+ (While supported by Java, Multithreading is a concurrency concept, not a core OOP concept.)
+
+9. What does API stand for?
+A.  Application Programming Interface
+B.  Advanced Programming Instructions
+C.  Application Processing Interface
+D.  Advanced Protocol Integration
+
+
+
+10.  What is the role of Metabase and Superset, mentioned in the resume?
+A. Software Development Kits (SDKs) for mobile app development
+B. Business Intelligence (BI) tools for data visualization and analysis
+C.  Version control systems for managing code changes
+D.  Cloud computing platforms

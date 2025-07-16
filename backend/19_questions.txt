@@ -1,0 +1,78 @@
+1. Question: Which of the following best describes gRPC?
+A. A query language for relational databases.
+B. A high-performance, open-source universal RPC framework.
+C. A JavaScript library for building user interfaces.
+D. A type of NoSQL database.
+
+
+2. Question: What is the primary function of Business Intelligence (BI) tools like Metabase and Superset?
+A.  Version control and collaborative coding.
+B.  Data analysis and visualization to support decision-making.
+C.  Automating software testing and deployment.
+D.  Developing and managing microservices.
+
+
+3. Question:  Which SQL keyword is used to sort the result set of a query?
+A.  FILTER
+B.  SORT
+C.  ORDER BY
+D.  ARRANGE
+
+
+4.  Question: Which data structure is best suited for implementing a Last-In, First-Out (LIFO) approach?
+A. Queue
+B. Stack
+C. Linked List
+D. Tree
+
+
+5. Question: What is the time complexity of searching for an element in a sorted array using binary search?
+A. O(n)
+B. O(log n)
+C. O(n^2)
+D. O(1)
+
+
+
+6. Question:  What is a key characteristic of microservices architecture?
+A. A monolithic application deployed as a single unit.
+B. Applications built as a collection of small, independent, and loosely coupled services.
+C.  A tightly coupled architecture with shared dependencies.
+D.  An approach that avoids APIs for inter-service communication.
+
+
+7. Question: Which of the following is NOT typically considered a core concept of Object-Oriented Programming (OOP)?
+A. Encapsulation
+B. Inheritance
+C. Polymorphism
+D. Recursion
+
+
+8.  Question:  What is the purpose of the "finally" block in a try-catch-finally statement in Java?
+A.  Code within the "finally" block is executed only if an exception is thrown.
+B.  Code within the "finally" block is executed only if no exception is thrown.
+C. Code within the "finally" block is always executed, regardless of whether an exception is thrown or not.
+D.  The "finally" block is used to define alternative code paths if an exception occurs.
+
+
+
+9. Which of the following is a valid way to declare a variable in Python?
+A. `int x = 5`
+B. `x = 5`
+C. `Dim x As Integer = 5`
+D. `var x = 5`
+
+
+10.  What is the output of the following Python code snippet?
+
+```python
+def my_function(x):
+  return x * 2
+
+print(my_function(5))
+```
+
+A. 5
+B. 25
+C. 10
+D. None

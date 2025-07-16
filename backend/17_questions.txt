@@ -1,0 +1,70 @@
+1. Question: What is the primary purpose of gRPC?
+A.  Styling web pages.
+B.  Creating user interfaces.
+C.  Developing high-performance RPC APIs.
+D.  Managing databases.
+
+
+2. Question: Which of the following is NOT typically a function of a Business Intelligence (BI) tool like Metabase or Superset?
+A. Data visualization and reporting.
+B.  Compiling code into executable programs.
+C.  Data analysis and exploration.
+D.  Dashboard creation.
+
+
+3. Question:  In SQL, which command is used to retrieve data from a database?
+A.  INSERT
+B.  UPDATE
+C.  SELECT
+D.  DELETE
+
+
+4. Question: Which data structure is best suited for implementing a Last-In-First-Out (LIFO) approach?
+A. Queue
+B. Stack
+C. Linked List
+D. Tree
+
+
+5. Question:  What is the primary difference between an abstract class and an interface in Java?
+A. An abstract class can have constructors; an interface cannot.
+B. An abstract class can have instance variables; an interface cannot.
+C. An abstract class can implement multiple interfaces; an interface cannot extend other interfaces.
+D. Both A and B.
+
+
+6. Question: Which of the following is NOT a core concept of Object-Oriented Programming (OOP) in Java?
+A. Encapsulation
+B. Inheritance
+C. Polymorphism
+D. Multithreading
+
+
+7. Question: In Python, which keyword is used to define a function?
+A. function
+B. def
+C. define
+D. method
+
+
+8. Question: What is the time complexity of a linear search algorithm?
+A. O(1)
+B. O(log n)
+C. O(n)
+D. O(n^2)
+
+
+
+9.  Question:  What is a key principle of User Experience (UX) Design?
+A.  Focusing solely on the visual aesthetics of a product.
+B.  Prioritizing user needs and ensuring a positive user experience.
+C.  Maximizing the number of features in a product.
+D.  Minimizing development time and cost.
+
+
+
+10. Question:  Which of the following is NOT a common type of ethical hacking?
+A. Penetration Testing
+B. Vulnerability Scanning
+C. Social Engineering
+D. Denial-of-Service Attack

@@ -1,0 +1,74 @@
+1. Which of the following is NOT a valid way to declare a variable in Java?
+A. `int x = 10;`
+B. `float y = 3.14f;`
+C. `string name = "Alen";`
+D. `boolean isTrue = true;`
+
+
+2.  What is the output of the following Java code snippet?
+
+```java
+String str = "Hello";
+System.out.println(str.substring(1, 4));
+```
+
+A. `Hel`
+B. `ell`
+C. `llo`
+D. `ello`
+
+
+3. In PHP, which function is used to open a file for reading?
+A. `fopen("filename.txt", "r");`
+B. `file_open("filename.txt", "read");`
+C. `open_file("filename.txt", "r");`
+D. `fread("filename.txt");`
+
+
+4. Which HTML tag is used to create a hyperlink?
+A. `<link>`
+B. `<a>`
+C. `<href>`
+D. `<url>`
+
+
+5.  What is the primary purpose of CSS?
+A. To define the structure and content of a web page.
+B. To style the presentation of a web page, including layout, colors, and fonts.
+C. To add interactivity and dynamic behavior to a web page.
+D. To handle server-side logic and database interactions.
+
+
+6. Which of the following is a deep learning framework mentioned in the resume?
+A. Flask
+B. Django
+C. Keras
+D. PHP
+
+
+7. What does DSA stand for in the context of computer science?
+A. Digital Signature Algorithm
+B. Data Structures and Algorithms
+C. Dynamic System Analysis
+D. Distributed Systems Architecture
+
+
+8. Which operating system is Kali Linux primarily used for?
+A. Gaming
+B. Web development
+C. Penetration testing and ethical hacking
+D. Graphic design
+
+
+9. Which Python library is commonly used for computer vision tasks, such as hand tracking?
+A. Pandas
+B. NumPy
+C. OpenCV
+D. Scikit-learn
+
+
+10.  In the context of cybersecurity, what does CTF stand for?
+A. Capture The Flag
+B. Certified Technology Fellow
+C. Cyber Threat Framework
+D. Computer Training Facility

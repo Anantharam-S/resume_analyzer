@@ -1,0 +1,68 @@
+1. Which of the following is NOT a valid way to declare a variable in C?
+A. `int x;`
+B. `float y = 3.14;`
+C. `char name[20];`
+D. `var age = 20;`
+
+
+2.  What is the primary function of an operating system (OS)?
+A. To manage hardware and software resources.
+B. To compile and execute programs.
+C. To create web pages.
+D. To design databases.
+
+
+3. Which keyword is used to implement inheritance in Java?
+A. `inherits`
+B. `extends`
+C. `implements`
+D. `import`
+
+
+4. Which function in Python is used to open a file?
+A. `file_open()`
+B. `fopen()`
+C. `open()`
+D. `read_file()`
+
+
+5. What does NLP stand for in the context of computer science?
+A. Non-Linear Programming
+B. Natural Language Processing
+C. Neural Link Protocol
+D. Network Layer Protocol
+
+
+6. Which of the following is NOT a server-side scripting language?
+A. PHP
+B. Python
+C. JavaScript
+D. Java
+
+
+7. What does HTML stand for?
+A. Hyper Text Markup Language
+B. High-Level Text Manipulation Language
+C. Hyperlink and Text Markup Language
+D. Home Tool Markup Language
+
+
+8. Which CSS property is used to change the text color of an element?
+A. `font-color`
+B. `text-color`
+C. `color`
+D. `font-style`
+
+
+9. Which keyword is used to declare a variable in JavaScript?
+A. `variable`
+B. `v`
+C. `int`
+D. `var` or `let` or `const`
+
+
+10. What is the correct syntax for a single-line comment in Python?
+A. `// This is a comment`
+B. `/* This is a comment */`
+C. `# This is a comment`
+D. `' This is a comment`

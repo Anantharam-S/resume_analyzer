@@ -1,0 +1,293 @@
+    from flask import Flask, request, jsonify, session, redirect, url_for
+    import os
+    import pdfplumber
+    import spacy
+    from fuzzywuzzy import fuzz
+    from sklearn.metrics.pairwise import cosine_similarity
+    import mysql.connector
+    from flask_bcrypt import Bcrypt
+    from flask_cors import CORS
+    import uuid
+    import numpy as np
+    import re
+    import google.generativeai as genai
+
+
+    app = Flask(__name__)
+    app.secret_key = "super_secret_key"  # Change this for security
+    bcrypt = Bcrypt(app)
+    CORS(app)  # Enables Cross-Origin Resource Sharing
+
+    UPLOAD_FOLDER = 'uploads'
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+    # Load NLP model
+    try:
+        nlp = spacy.load("en_core_web_sm")
+    except OSError:
+        from spacy.cli import download
+        download("en_core_web_sm")
+        nlp = spacy.load("en_core_web_sm")
+
+    # Database setup
+    def get_db_connection():
+        return mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="12345",
+            database="resume_analyzer"  # Replace with your actual database name
+        )
+
+    def init_db():
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Create tables if they don't exist
+        cursor.execute('''CREATE TABLE IF NOT EXISTS applicants (
+                            id INT AUTO_INCREMENT PRIMARY KEY,
+                            name VARCHAR(255),
+                            email VARCHAR(255) UNIQUE NOT NULL,
+                            resume_path VARCHAR(255) NOT NULL)''')
+
+        cursor.execute('''CREATE TABLE IF NOT EXISTS user_login (
+                            id INT AUTO_INCREMENT PRIMARY KEY,
+                            username VARCHAR(50) UNIQUE NOT NULL,
+                            password_hash VARCHAR(255) NOT NULL,
+                            applicant_id INT NOT NULL,
+                            FOREIGN KEY (applicant_id) REFERENCES applicants(id) ON DELETE CASCADE)''')
+
+        cursor.execute('''CREATE TABLE IF NOT EXISTS admin_login (
+                            id INT AUTO_INCREMENT PRIMARY KEY,
+                            username VARCHAR(50) UNIQUE NOT NULL,
+                            password_hash VARCHAR(255) NOT NULL)''')
+
+        cursor.execute('''CREATE TABLE IF NOT EXISTS quiz_scores (
+                            id INT AUTO_INCREMENT PRIMARY KEY,
+                            applicant_id INT NOT NULL,
+                            score FLOAT NOT NULL,
+                            FOREIGN KEY (applicant_id) REFERENCES applicants(id) ON DELETE CASCADE)''')
+
+        cursor.execute('''CREATE TABLE IF NOT EXISTS resume_scores (
+                            id INT AUTO_INCREMENT PRIMARY KEY,
+                            applicant_id INT NOT NULL,
+                            score FLOAT NOT NULL,
+                            FOREIGN KEY (applicant_id) REFERENCES applicants(id) ON DELETE CASCADE)''')
+
+        conn.commit()
+        conn.close()
+
+    init_db()
+
+    def extract_text_from_pdf(pdf_path):
+        text = ""
+        with pdfplumber.open(pdf_path) as pdf:
+            for page in pdf.pages:
+                page_text = page.extract_text() or ''
+                text += page_text + "\n"
+        return text
+
+    def extract_entities(text):
+        doc = nlp(text)
+        return {ent.label_: ent.text for ent in doc.ents}
+
+    def compute_matching_score(cv_text, cv_entities, required_education, required_skills, required_experience):
+        score = 0
+        education = cv_entities.get('EDU', '')
+        score += fuzz.token_set_ratio(education, required_education) / 100
+
+        for skill in required_skills:
+            max_skill_match_score = max([fuzz.token_set_ratio(skill.strip(), word) for word in cv_text.split()] + [0])
+            score += max_skill_match_score / 100
+
+        experience_text = cv_entities.get('DATE', '')
+        doc1, doc2 = nlp(experience_text), nlp(f"{required_experience} years")
+        if doc1.has_vector and doc2.has_vector:
+            score += cosine_similarity(doc1.vector.reshape(1, -1), doc2.vector.reshape(1, -1))[0][0]
+
+        return score
+
+    @app.route('/analyze_resumes', methods=['POST'])
+    def analyze_resumes():
+        try:
+            if 'resumes' not in request.files:
+                return jsonify({"error": "No resumes uploaded"}), 400
+
+            resumes = request.files.getlist('resumes')
+            if not resumes:
+                return jsonify({"error": "No resumes selected"}), 400
+
+            required_education = request.form.get('required_education', '')
+            required_skills_raw = request.form.get('required_skills', '')
+            required_experience = request.form.get('required_experience', '0')
+            top_cvs_count = int(request.form.get('top_cvs_count', 3))
+
+            required_skills = [s.strip() for s in required_skills_raw.split(',') if s.strip()]
+            if not required_skills:
+                return jsonify({"error": "Required skills must be provided."}), 400
+
+            print(f"Matching {len(resumes)} resumes against skills: {required_skills}, education: {required_education}, experience: {required_experience} years")
+
+            cv_scores = {}
+
+            for file in resumes:
+                if file.filename.endswith('.pdf'):
+                    unique_filename = f"{uuid.uuid4().hex}_{file.filename}"
+                    file_path = os.path.join(UPLOAD_FOLDER, unique_filename)
+                    file.save(file_path)
+
+                    text = extract_text_from_pdf(file_path)
+                    entities = extract_entities(text)
+                    score = compute_matching_score(text, entities, required_education, required_skills, required_experience)
+                    cv_scores[file.filename] = score
+                else:
+                    print(f"Skipped file: {file.filename} (Not a PDF)")
+
+            top_cvs = sorted(cv_scores.items(), key=lambda x: x[1], reverse=True)[:top_cvs_count]
+            return jsonify({"top_resumes": top_cvs})
+
+        except Exception as e:
+            print("Error during resume analysis:", str(e))
+            return jsonify({"error": "Something went wrong during resume analysis", "details": str(e)}), 500
+
+    # ✅ Applicant Login Route
+    @app.route('/applicant_login', methods=['POST'])
+    def applicant_login():
+        data = request.json
+        username = data.get("username")
+        password = data.get("password")
+
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        cursor.execute("SELECT id, applicant_id FROM user_login WHERE username = %s AND password = %s", (username, password))
+        user = cursor.fetchone()
+        conn.close()
+
+        if user:
+            session["applicant_id"] = user["applicant_id"]  # Store applicant_id in session
+            return jsonify({"status": "success", "applicant_id": user["applicant_id"]})  # ✅ Return applicant_id
+        else:
+            return jsonify({"status": "error", "message": "Invalid credentials"}), 401
+
+
+    @app.route('/profile/<int:applicant_id>', methods=['GET'])
+    def applicant_profile(applicant_id):
+        if "applicant_id" not in session or session["applicant_id"] != applicant_id:
+            return jsonify({"message": "Unauthorized access"}), 403
+
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        # ✅ Ensure correct table joins
+        cursor.execute("""
+            SELECT u.username, a.resume_path
+            FROM user_login u
+            LEFT JOIN applicants a ON u.id = a.applicant_id
+            WHERE u.id = %s
+        """, (applicant_id,))
+        user = cursor.fetchone()
+        conn.close()
+
+        if not user:
+            return jsonify({"message": "User not found"}), 404
+
+        return jsonify({
+            "username": user["username"] if user["username"] else "Unknown",
+            "resume": user["resume_path"] if user["resume_path"] else None
+        })
+
+    # ✅ HR Login Route
+    @app.route('/hr_login', methods=['POST'])
+    def hr_login():
+        data = request.get_json()
+        username = data.get("username")
+        password = data.get("password")
+
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        # Check if the username exists in admin_login table
+        cursor.execute("SELECT * FROM admin_login WHERE username = %s", (username,))
+        hr_admin = cursor.fetchone()
+        conn.close()
+
+        if not hr_admin:
+            return jsonify({"message": "❌ HR Admin not found", "status": "error"}), 401
+
+        stored_password = hr_admin["password"]
+
+        if stored_password == password:  # Check password
+            session["hr_id"] = hr_admin["id"]
+            return jsonify({"message": "✅ HR Login successful", "status": "success", "redirect": "/adminwork.html"}), 200
+        else:
+            return jsonify({"message": "❌ Incorrect password", "status": "error"}), 401
+
+    # ✅ Candidate Signup Route
+    @app.route('/candidate_signup', methods=['POST'])
+    def candidate_signup():
+        data = request.get_json()
+        username = data.get("username")
+        password = data.get("password")
+        confirm_password = data.get("confirm_password")
+
+        if not username or not password or not confirm_password:
+            return jsonify({"message": "❌ All fields are required", "status": "error"}), 400
+
+        if password != confirm_password:
+            return jsonify({"message": "❌ Passwords do not match", "status": "error"}), 400
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        try:
+            # Insert the new user into the user_login table
+            cursor.execute("c", (username, password))
+            conn.commit()
+            return jsonify({"message": "✅ Signup successful!", "status": "success"}), 200
+
+        except mysql.connector.IntegrityError:
+            return jsonify({"message": "❌ Username already exists", "status": "error"}), 400
+
+        finally:
+            cursor.close()
+            conn.close()
+
+    # ✅ Resume Upload Route (No Hashing)
+    @app.route('/upload_resume', methods=['POST'])
+    def upload_resume():
+        if 'resume' not in request.files:
+            return jsonify({"message": "No file uploaded", "status": "error"}), 400
+
+        file = request.files['resume']
+        name = request.form.get('name')
+        email = request.form.get('email')
+
+        if not name or not email:
+            return jsonify({"message": "Name and Email are required", "status": "error"}), 400
+
+        if file.filename == "" or not file.filename.endswith('.pdf'):
+            return jsonify({"message": "Invalid file type. Only PDF allowed.", "status": "error"}), 400
+
+        # Generate a unique filename
+        unique_filename = f"{uuid.uuid4().hex}_{file.filename}"
+        file_path = os.path.join(UPLOAD_FOLDER, unique_filename)
+        file.save(file_path)
+
+        # Insert into database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("INSERT INTO applicants (name, email, resume_path) VALUES (%s, %s, %s)",
+                        (name, email, unique_filename))
+            conn.commit()
+            return jsonify({"message": "Resume uploaded successfully!", "status": "success"}), 200
+        except mysql.connector.Error as err:
+            conn.rollback()
+            return jsonify({"message": f"Database error: {err}", "status": "error"}), 500
+        finally:
+            cursor.close()
+            conn.close()
+
+
+    if __name__ == '__main__':
+        app.run(host="0.0.0.0", port=5001, debug=True)

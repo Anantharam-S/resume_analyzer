@@ -1,0 +1,68 @@
+1. Which of the following is NOT a valid data type in Python?
+A. int
+B. string
+C. char
+D. float
+
+
+2. In Java, which keyword is used to implement inheritance?
+A. inherits
+B. extends
+C. implements
+D. import
+
+
+3. What does SQL stand for?
+A. Standard Query Language
+B. Structured Query Language
+C. Statistical Query Language
+D. Simple Query Language
+
+
+4. Which data structure follows the LIFO (Last-In, First-Out) principle?
+A. Queue
+B. Stack
+C. Linked List
+D. Array
+
+
+5.  Which of the following is a valid way to declare a variable in C?
+A. int x = 5;
+B. x = 5;
+C. integer x = 5;
+D. var x = 5;
+
+
+6.  What is the primary purpose of gRPC?
+A. Building user interfaces
+B. Creating databases
+C. Developing high-performance Remote Procedure Calls (RPCs)
+D. Managing file systems
+
+
+7. In object-oriented programming, what is the concept of bundling data and methods that operate on that data within a single unit called?
+A. Polymorphism
+B. Inheritance
+C. Encapsulation
+D. Abstraction
+
+
+8. Which of the following is NOT a core concept of UX Design?
+A. User research
+B. Visual aesthetics
+C. Database management
+D. Usability testing
+
+
+9. What is the time complexity of searching for an element in a sorted array using binary search?
+A. O(n)
+B. O(log n)
+C. O(n^2)
+D. O(1)
+
+
+10.  What does API stand for?
+A. Application Programming Interface
+B. Advanced Programming Interface
+C. Application Processing Interface
+D. Advanced Processing Interface

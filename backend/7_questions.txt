@@ -1,0 +1,60 @@
+1. Which database management skill is explicitly mentioned in Bevan's resume?
+A. NoSQL
+B. PostgreSQL
+C. SQL
+D. MongoDB
+
+2. Bevan's internship involved research and work on which Business Intelligence (BI) tools?
+A. Tableau and Power BI
+B. Metabase and Superset
+C. Qlik Sense and MicroStrategy
+D. Looker and Sisense
+
+3. Which specific type of API did Bevan conduct research on developing for microservices?
+A. RESTful API
+B. SOAP API
+C. gRPC-based API
+D. GraphQL API
+
+4. Besides Python, which other object-oriented programming language is Bevan proficient in according to the resume?
+A. C++
+B. JavaScript
+C. C#
+D. Java
+
+5. Which core computer science concept is listed among Bevan's skills?
+A. Algorithm Analysis
+B. Data Structures
+C. Compiler Design
+D. Operating Systems
+
+6. Which of the following certifications did Bevan obtain from Google?
+A. Fundamentals of Digital Marketing
+B. Foundations of User Experience (UX) Design
+C. Google IT Support Professional Certificate
+D. Data Analytics Professional Certificate
+
+7.  Which institution awarded Bevan the "Fundamentals of Artificial Intelligence" certification?
+A. Indian Institute of Technology, Madras
+B. Indian Institute of Technology, Delhi
+C. Indian Institute of Technology, Guwahati
+D. Indian Institute of Technology, Bombay
+
+
+8.  Which programming language did Bevan learn through a course from the University of Michigan?
+A. Java
+B. C
+C. Python
+D. SQL
+
+9. Which area of cybersecurity is reflected in a certification obtained by Bevan?
+A. Network Security
+B. Ethical Hacking
+C. Data Privacy
+D. Cryptography
+
+10.  Apart from English and Malayalam, which other language does Bevan list on their resume?
+A.  Tamil
+B.  French
+C.  Hindi
+D.  German 

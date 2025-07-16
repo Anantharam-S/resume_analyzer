@@ -1,0 +1,112 @@
+
+from flask import Flask, request, jsonify
+import os
+import pdfplumber
+import spacy
+from fuzzywuzzy import fuzz
+from sklearn.metrics.pairwise import cosine_similarity
+import mysql.connector
+
+app = Flask(__name__)
+UPLOAD_FOLDER = 'uploads'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+# Load NLP model
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    from spacy.cli import download
+    download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
+
+# Database setup
+def init_db():
+    conn = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="12345",
+    database="resume_analyzer"  # Replace with your actual database name
+)
+
+# Check if the connection is successful
+    if conn.is_connected():
+         print("Connected to MySQL database")
+         print("hi")    
+         cursor = conn.cursor()
+         cursor.execute('''CREATE TABLE IF NOT EXISTS applicants (
+                     id INT AUTO_INCREMENT PRIMARY KEY,
+                     name VARCHAR(255),
+                     email VARCHAR(255),
+                     resume_path VARCHAR(255))''')
+         conn.commit()
+         conn.close()
+
+init_db()
+
+def extract_text_from_pdf(pdf_path):
+    text = ""
+    with pdfplumber.open(pdf_path) as pdf:
+        for page in pdf.pages:
+            text += page.extract_text() + "\n"
+    return text
+
+def extract_entities(text):
+    doc = nlp(text)
+    return {ent.label_: ent.text for ent in doc.ents}
+
+def compute_matching_score(cv_text, cv_entities, required_education, required_skills, required_experience):
+    score = 0
+    education = cv_entities.get('EDU', '')
+    score += fuzz.token_set_ratio(education, required_education) / 100
+
+    for skill in required_skills:
+        max_skill_match_score = max([fuzz.token_set_ratio(skill, word) for word in cv_text.split()] + [0])
+        score += max_skill_match_score / 100
+    
+    experience_text = cv_entities.get('DATE', '')
+    doc1, doc2 = nlp(experience_text), nlp(f"{required_experience} years")
+    if doc1.has_vector and doc2.has_vector:
+        score += cosine_similarity(doc1.vector.reshape(1, -1), doc2.vector.reshape(1, -1))[0][0]
+    
+    return score
+
+@app.route('/upload_resume', methods=['POST'])
+def upload_resume():
+    file = request.files['resume']
+    name = request.form['name']
+    email = request.form['email']
+    if file.filename.endswith('.pdf'):
+        file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(file_path)
+        conn = mysql.connector.connect(host="localhost", user="root", password="12345",database="resume_analyzer")
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO applicants (name, email, resume_path) VALUES (%s, %s, %s)", (name, email, file_path))
+        conn.commit()
+        conn.close()
+        return jsonify({"message": "Resume uploaded successfully!"})
+    return jsonify({"error": "Invalid file type. Only PDF allowed."}), 400
+
+@app.route('/match_resumes', methods=['POST'])
+def match_resumes():
+    data = request.json
+    required_education = data['education']
+    required_skills = data['skills']
+    required_experience = data['experience']
+    conn = mysql.connector.connect(host="localhost", user="root", password="12345", database="resume_analyzer")
+    cursor = conn.cursor()
+    cursor.execute("SELECT name, resume_path FROM applicants")
+    applicants = cursor.fetchall()
+    conn.close()
+
+    scores = {}
+    for name, resume_path in applicants:
+        text = extract_text_from_pdf(resume_path)
+        entities = extract_entities(text)
+        score = compute_matching_score(text, entities, required_education, required_skills, required_experience)
+        scores[name] = score
+    
+    sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+    return jsonify(sorted_scores)
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=5001, debug=True)

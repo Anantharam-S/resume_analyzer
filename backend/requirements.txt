@@ -1,0 +1,7 @@
+flask
+pdfplumber
+spacy
+fuzzywuzzy
+scikit-learn
+mysql-connector-python
+gunicorn

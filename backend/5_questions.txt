@@ -1,0 +1,73 @@
+1. Which of the following is NOT a valid way to declare a variable in Java?
+    A. `int x = 10;`
+    B. `String name = "Bevan";`
+    C. `float pi = 3.14f;`
+    D. `var age = 20;`
+
+
+2. What is the output of the following Java code snippet?
+```java
+String str = "Hello";
+System.out.println(str.substring(1, 4));
+```
+    A. "Hel"
+    B. "ell"
+    C. "llo"
+    D. "ello"
+
+
+3. Which keyword is used to implement inheritance in Java?
+    A. `extends`
+    B. `implements`
+    C. `inherits`
+    D. `derive`
+
+
+4. What is the purpose of the `finally` block in Java exception handling?
+    A. To execute code only if an exception is thrown.
+    B. To execute code only if an exception is not thrown.
+    C. To execute code regardless of whether an exception is thrown or not.
+    D. To define the type of exception being handled.
+
+
+5. Which data structure is best suited for implementing a Last-In, First-Out (LIFO) behavior in Java?
+    A. Queue
+    B. Stack
+    C. Linked List
+    D. Array
+
+
+6. What is the time complexity of searching for an element in a sorted array using binary search?
+    A. O(n)
+    B. O(log n)
+    C. O(n^2)
+    D. O(1)
+
+
+
+7.  Which of the following is NOT a primitive data type in C?
+    A. `int`
+    B. `float`
+    C. `String`
+    D. `char`
+
+
+8. What does SQL stand for?
+    A. Standard Query Language
+    B. Structured Query Language
+    C. Statistical Query Language
+    D. Simple Query Language
+
+
+9. What is the purpose of a `WHERE` clause in an SQL query?
+    A. To specify the columns to be retrieved.
+    B. To filter the rows based on a condition.
+    C. To sort the results in a specific order.
+    D. To group the results based on a column.
+
+
+10. What is the difference between `List` and `Set` in Python?
+    A. `List` is ordered and allows duplicates, while `Set` is unordered and does not allow duplicates.
+    B. `List` is unordered and does not allow duplicates, while `Set` is ordered and allows duplicates.
+    C. Both `List` and `Set` are ordered and allow duplicates.
+    D. Both `List` and `Set` are unordered and do not allow duplicates.

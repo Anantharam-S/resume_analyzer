@@ -1,0 +1,69 @@
+1. Which Business Intelligence (BI) tools did Bevan work with during his internship at SEQATO Software Solutions?
+A. Tableau and Power BI
+B. Metabase and Superset
+C. Qlik Sense and Sisense
+D. Looker and Domo
+**Correct Answer: B**
+
+2. Bevan's internship involved research and development on a high-performance API based on which technology?
+A. REST
+B. SOAP
+C. gRPC
+D. GraphQL
+**Correct Answer: C**
+
+3. Which database language is Bevan proficient in, as mentioned in his "Skills" section?
+A. NoSQL
+B. PostgreSQL
+C. MongoDB
+D. SQL
+**Correct Answer: D**
+
+4. Besides Computer Science and Engineering, Bevan is pursuing a minor degree in which area?
+A. Data Science
+B. Artificial Intelligence
+C. Robotics and Automation
+D. Cybersecurity
+**Correct Answer: C**
+
+5. Which of the following certifications did Bevan obtain from Google?
+A. Fundamentals of Artificial Intelligence
+B. Foundations of User Experience (UX) Design
+C. Getting Started with Python
+D. Java Programming Masterclass
+**Correct Answer: B**
+
+6.  What programming language did Bevan learn through a course from the University of Michigan?
+A. Java
+B. C
+C. Python
+D. SQL
+**Correct Answer: C**
+
+7.  Which institution provided Bevan with the "Fundamentals of Artificial Intelligence" certification?
+A. Google
+B. University of Michigan
+C. Indian Institute of Technology, Guwahati
+D. Learn Programming Academy
+**Correct Answer: C**
+
+8. According to the resume, Bevan has "Masterclass" level training in which programming language?
+A. Python
+B. C
+C. Java
+D. SQL
+**Correct Answer: C**
+
+9.  Which security-related certification does Bevan hold?
+A. Certified Ethical Hacker (CEH)
+B. CompTIA Security+
+C. Ethical Hacking from Scratch
+D. Certified Information Systems Security Professional (CISSP)
+**Correct Answer: C**
+
+10. Which of the following is NOT listed as one of Bevan's programming languages?
+A. Python
+B. Java
+C. C++
+D. C
+**Correct Answer: C**
